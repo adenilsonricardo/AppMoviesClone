@@ -17,6 +17,5 @@ interface ApplicationComponent {
     }
     fun mainComponent(): MainComponent.Factory
 }
-
 @Module(subcomponents = [MainComponent::class])
 object SubcomponentsModule
