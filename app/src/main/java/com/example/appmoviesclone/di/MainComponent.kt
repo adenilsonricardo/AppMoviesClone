@@ -7,10 +7,10 @@ import dagger.Subcomponent
 
 @Subcomponent(modules = [])
 interface MainComponent {
+    @Subcomponent.Factory
     interface Factory{
         fun create(): MainComponent
     }
-
     fun inject(activity: MainActivity)
     fun inject(fragment: HomeFragment)
 }
