@@ -6,7 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 
-interface tmdbApi {
+interface TmdbApi {
     @GET("/trending/movie/day")
     fun getTrending(
         @Query("language")
