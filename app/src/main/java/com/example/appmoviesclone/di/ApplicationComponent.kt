@@ -9,7 +9,7 @@ import java.security.AccessControlContext
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [])
+@Component(modules = [MainModule::class, NetworkModule::class, MainComponent::class])
 interface ApplicationComponent {
     @Component.Factory
     interface Factory {

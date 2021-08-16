@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
-class NetworkModule{
+class NetworkModule {
     @Singleton
     @Provides
     fun providesInterceptor(): Interceptor{
@@ -26,7 +26,6 @@ class NetworkModule{
                 .newBuilder()
                 .url(newUrl)
                 .build()
-
             chain.proceed(newRequest)
         }
     }
