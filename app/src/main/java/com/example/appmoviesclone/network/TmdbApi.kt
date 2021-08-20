@@ -14,7 +14,4 @@ interface TmdbApi {
         @Query("page")
         page: Int
     ): Call<MovieResponseDTO>?
-
-
-
 }

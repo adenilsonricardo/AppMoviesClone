@@ -5,21 +5,18 @@ import androidx.lifecycle.ViewModelProvider
 import dagger.Binds
 import dagger.MapKey
 import dagger.Module
-import java.lang.Exception
-import java.lang.IllegalArgumentException
-import java.lang.RuntimeException
 import javax.inject.Inject
 import javax.inject.Provider
 import kotlin.reflect.KClass
 
 class ViewModelFactory @Inject constructor(
-    private val creators: @JvmSuppressWildcards Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel:
-) : ViewModelProvider.Factory{
+    private val creators:  @JvmSuppressWildcards Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>
+) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         var creator: Provider<out ViewModel>? = creators[modelClass]
         if (creator == null) {
-            for ((key,value) in creators) {
-                if (modelClass.isAssignableFrom(key)){
+            for ((key, value) in creators) {
+                if (modelClass.isAssignableFrom(key)) {
                     creator = value
                     break
                 }
@@ -31,12 +28,11 @@ class ViewModelFactory @Inject constructor(
         try {
             @Suppress("UNCHECKED_CAST")
             return creator.get() as T
-        } catch (e: Exception){
+        } catch (e: Exception) {
             throw RuntimeException(e)
         }
     }
-}
-@Module
+}@Module
 abstract class ViewModelBuilderModule {
     @Binds
     abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory

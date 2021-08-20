@@ -7,12 +7,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.example.appmoviesclone.MainActivity
 import com.example.appmoviesclone.R
 import javax.inject.Inject
 
 class HomeFragment : Fragment() {
-
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private val viewModel by viewModels<HomeViewModel> {viewModelFactory}
@@ -24,10 +24,8 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.home_fragment, container, false)
+        val view = inflater.inflate(R.layout.home_fragment, container, false)
+        viewModel.getTrending()
+        return view
     }
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-    }
-
 }

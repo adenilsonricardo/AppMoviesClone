@@ -29,7 +29,6 @@ class NetworkModule {
             chain.proceed(newRequest)
         }
     }
-
     @Singleton
     @Provides
     fun loggingClient(authInterceptor: Interceptor): OkHttpClient {
@@ -43,12 +42,11 @@ class NetworkModule {
             .addNetworkInterceptor(authInterceptor)
             .build()
     }
-
     @Singleton
-    @Provides fun providesRetrofitInstance(logginClient: OkHttpClient): Retrofit {
+    @Provides fun providesRetrofitInstance(loggingClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl(AppConstants.BASE_URL)
-            .client(logginClient)
+            .client(loggingClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
