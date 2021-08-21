@@ -1,6 +1,8 @@
 package com.example.appmoviesclone.di
 
+import android.net.Network
 import com.example.appmoviesclone.AppConstants
+import com.example.appmoviesclone.network.NetworkAdapterFactory
 import com.example.appmoviesclone.network.TmdbApi
 import dagger.Module
 import dagger.Provides
@@ -48,6 +50,7 @@ class NetworkModule {
             .baseUrl(AppConstants.BASE_URL)
             .client(loggingClient)
             .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(NetworkAdapterFactory())
             .build()
     }
     @Singleton
