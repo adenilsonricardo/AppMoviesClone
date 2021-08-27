@@ -9,5 +9,5 @@ sealed class NetworkResponse<out T : Any, out U : Any>{
 
     data class NetworkError(val error: IOException) : NetworkResponse<Nothing, Nothing>()
 
-    data class Unknown(val error: Throwable?) : NetworkResponse<Nothing, Nothing>()
+    data class UnknownError(val error: Throwable? = null) : NetworkResponse<Nothing, Nothing>()
 }
