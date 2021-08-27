@@ -8,13 +8,12 @@ import java.lang.reflect.Parameter
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 
-class NetworkAdapterFactory : CallAdapter.Factory() {
+class NetworkResponseAdapterFactory : CallAdapter.Factory() {
     override fun get(
         returnType: Type,
         annotations: Array<out Annotation>,
         retrofit: Retrofit
     ): CallAdapter<*, *>? {
-        // Call<NetworkResponse<MovieResponseDTO, ErrorResponse>>
         if (Call::class.java != getRawType(returnType)) {
             return null
         }

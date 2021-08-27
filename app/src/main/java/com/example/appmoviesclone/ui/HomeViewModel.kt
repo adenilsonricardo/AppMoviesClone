@@ -3,26 +3,36 @@ package com.example.appmoviesclone.ui
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.appmoviesclone.network.NetworkResponse
 import com.example.appmoviesclone.network.TmdbApi
 import com.example.appmoviesclone.network.model.dto.MovieResponseDTO
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
+val LOGTAG = "logrequest"
+
 class HomeViewModel @Inject constructor(val tmdbApi: TmdbApi) : ViewModel() {
     fun getTrending() {
-        tmdbApi.getTrending("pt-BR", 1)?.enqueue(object : Callback<MovieResponseDTO> {
-            override fun onFailure(call: retrofit2.Call<MovieResponseDTO>, t: Throwable) {
-                Log.d("meuteste", "onFailure")
-            }
-            override fun onResponse(
-                call: Call<MovieResponseDTO>,
-                response: Response<MovieResponseDTO>
-            ) {
-                if (response.isSuccessful){
+        viewModelScope.launch {
+            val response = tmdbApi.getTrending("pt-BR", 1)
+            when(response){
+                is NetworkResponse.Success -> {
+                    Log.d(LOGTAG, "Success")
+                }
+                is NetworkResponse.ApiError -> {
+                    Log.d(LOGTAG, "ApiError")
+                }
+                is NetworkResponse.NetworkError -> {
+                    Log.d(LOGTAG, "NetworkError")
+                }
+                is NetworkResponse.UnknownError -> {
+                    Log.d(LOGTAG, "UnknownError")
                 }
             }
-        })
+        }
     }
 }
