@@ -1,11 +1,9 @@
 package com.example.appmoviesclone.di
 
 import android.content.Context
-import dagger.Binds
 import dagger.BindsInstance
 import dagger.Component
 import dagger.Module
-import java.security.AccessControlContext
 import javax.inject.Singleton
 
 @Singleton
@@ -13,8 +11,10 @@ import javax.inject.Singleton
         MainModule::class,
         NetworkModule::class,
         ViewModelBuilderModule::class,
-        SubcomponentsModule::class]
-)
+        DataModule::class,
+        DispatcherModule::class,
+        SubcomponentsModule::class
+])
 interface ApplicationComponent {
     @Component.Factory
     interface Factory {
