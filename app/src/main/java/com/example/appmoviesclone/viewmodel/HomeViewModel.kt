@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.appmoviesclone.AppConstants
 import com.example.appmoviesclone.di.IoDispatcher
 import com.example.appmoviesclone.network.NetworkResponse
-import com.example.appmoviesclone.network.TmdbApi
 import com.example.appmoviesclone.network.model.dto.MovieDTO
 import com.example.appmoviesclone.repository.HomeDataSource
 import kotlinx.coroutines.CoroutineDispatcher
@@ -16,7 +15,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
-class HomeViewModel @Inject constructor(private val tmdbApi: TmdbApi, private val homeDataSource: HomeDataSource, @IoDispatcher private val dispatcher: CoroutineDispatcher) : ViewModel() {
+class HomeViewModel @Inject constructor(private val homeDataSource: HomeDataSource, @IoDispatcher private val dispatcher: CoroutineDispatcher) : ViewModel() {
     private val _listsOfMovies: MutableLiveData<List<List<MovieDTO>>>? = MutableLiveData()
     val listsOfMovies: LiveData<List<List<MovieDTO>>>? = _listsOfMovies
 
