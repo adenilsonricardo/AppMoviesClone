@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.appmoviesclone.MainActivity
 import com.example.appmoviesclone.R
 import com.example.appmoviesclone.databinding.HomeFragmentBinding
@@ -44,7 +45,9 @@ class HomeFragment : Fragment() {
     private fun listsOfMoviesObserver() {
         viewModel.listsOfMovies?.observe(viewLifecycleOwner, Observer { lists ->
             lists?.let {
-
+                binding.rvListsOfMovies.layoutManager =
+                    LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                binding.rvListsOfMovies.adapter = ListsOfMoviesAdapter(requireContext(), lists)
             }
         })
     }
