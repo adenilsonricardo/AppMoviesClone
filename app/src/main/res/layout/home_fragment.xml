@@ -17,14 +17,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
         <include
-            android:id="i_loading_home"
+            android:id="@+id/i_loading_home"
             layout="@layout/layout_loading_home"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:viewModel="@{viewModel}"
             tools:visibility="invisible"/>
         <include
-            android:id="i_error_screen"
+            android:id="@+id/i_error_screen"
             layout="@layout/layout_error"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

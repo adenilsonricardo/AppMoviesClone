@@ -4,13 +4,14 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.appmoviesclone.R
 import com.example.appmoviesclone.network.model.dto.MovieDTO
 
 class ListsOfMoviesAdapter (val context: Context, val lists: List<List<MovieDTO>>)
     : RecyclerView.Adapter<ListsOfMoviesAdapter.MovieListHolder>() {
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieListHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.list_item_rv_movies, parent, false)
         return MovieListHolder(view)
@@ -24,13 +25,12 @@ class ListsOfMoviesAdapter (val context: Context, val lists: List<List<MovieDTO>
             3 -> "Top Rated"
             else -> "Movies"
         }
-        holder.movies.LayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        holder.movies.adapter = MoviesAdapter(context, lists[position])
+        holder.movies.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        holder.movies.adapter = MovieAdapter(context, lists[position])
     }
     class MovieListHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private var title = itemView.tv_movies_title
-        private var movies = itemView.rv_movies
-
+        var title: TextView = itemView.findViewById(R.id.tv_movies_title)
+        var movies: RecyclerView = itemView.findViewById(R.id.rv_movies)
     }
 }
 

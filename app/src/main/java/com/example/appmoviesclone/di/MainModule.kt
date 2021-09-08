@@ -1,7 +1,7 @@
 package com.example.appmoviesclone.di
 
 import androidx.lifecycle.ViewModel
-import com.example.appmoviesclone.ui.HomeViewModel
+import com.example.appmoviesclone.viewmodel.HomeViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

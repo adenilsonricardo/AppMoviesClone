@@ -36,7 +36,7 @@ class HomeFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-        attachObsevers()
+        attachObservers()
         return binding.root
     }
     private fun attachObservers() {

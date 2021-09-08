@@ -1,6 +1,5 @@
 package com.example.appmoviesclone.viewmodel
 
-
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,7 +12,6 @@ import com.example.appmoviesclone.repository.HomeDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
 
 class HomeViewModel @Inject constructor(private val homeDataSource: HomeDataSource, @IoDispatcher private val dispatcher: CoroutineDispatcher) : ViewModel() {
     private val _listsOfMovies: MutableLiveData<List<List<MovieDTO>>>? = MutableLiveData()
@@ -28,6 +26,10 @@ class HomeViewModel @Inject constructor(private val homeDataSource: HomeDataSour
     private val _isLoading: MutableLiveData<Boolean>? = MutableLiveData()
     val isLoading: LiveData<Boolean>? = _isLoading
 
+    init {
+        getListsOfMovies()
+    }
+
     fun getListsOfMovies() {
         showErrorMessage(false)
         try {
@@ -35,9 +37,9 @@ class HomeViewModel @Inject constructor(private val homeDataSource: HomeDataSour
                 homeDataSource.getListsOfMovies(dispatcher) { result ->
                     when(result) {
                         is NetworkResponse.Success -> {
-                            _listsOfMovies?.value = result.body
-                            _isLoading?.value = false
-                            _errorMessageVisibility?.value = false
+                            _listsOfMovies?.postValue(result.body)
+                            _isLoading?.postValue(false)
+                            _errorMessageVisibility?.postValue(false)
                         }
                         is NetworkResponse.NetworkError -> {
                             showErrorMessage(true,AppConstants.NETWORK_ERROR_MESSAGE )
@@ -56,8 +58,8 @@ class HomeViewModel @Inject constructor(private val homeDataSource: HomeDataSour
         }
     }
     private fun showErrorMessage(show: Boolean, message: String? = null) {
-        _isLoading?.value = !show
-        _errorMessageVisibility?.value = show
-        _errorMessage?.value = message
+        _isLoading?.postValue(!show)
+        _errorMessageVisibility?.postValue(show)
+        _errorMessage?.postValue(message)
     }
 }
