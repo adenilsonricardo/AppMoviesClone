@@ -32,7 +32,8 @@ class ViewModelFactory @Inject constructor(
             throw RuntimeException(e)
         }
     }
-}@Module
+}
+@Module
 abstract class ViewModelBuilderModule {
     @Binds
     abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory

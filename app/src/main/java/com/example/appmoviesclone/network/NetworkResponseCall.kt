@@ -8,9 +8,8 @@ import retrofit2.Callback
 import retrofit2.Converter
 import retrofit2.Response
 import java.io.IOException
-import java.lang.UnsupportedOperationException
 
-internal class NetworkResponseCall <S: Any, E : Any>(
+internal class NetworkResponseCall <S : Any, E : Any>(
     private val delegate: Call<S>,
     private val errorConverter: Converter<ResponseBody, E>
 ) : Call<NetworkResponse<S, E>> {

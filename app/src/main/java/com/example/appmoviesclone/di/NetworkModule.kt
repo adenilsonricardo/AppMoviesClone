@@ -44,7 +44,8 @@ class NetworkModule {
             .build()
     }
     @Singleton
-    @Provides fun providesRetrofitInstance(loggingClient: OkHttpClient): Retrofit {
+    @Provides 
+    fun providesRetrofitInstance(loggingClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl(AppConstants.BASE_URL)
             .client(loggingClient)

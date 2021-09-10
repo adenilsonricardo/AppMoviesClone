@@ -26,12 +26,10 @@ import java.io.IOException
 class HomeViewModelTest{
     @get:Rule
     val rule = InstantTaskExecutorRule()
-
     private val dispatcher = TestCoroutineDispatcher()
     private var homeDataSourceMock: HomeDataSourceMock? = null
     private var moviesListMock: List<MovieDTO> = listOf(MovieDTO(0,"", "",""))
     private var listsOfMoviesMock: List<List<MovieDTO>> = listOf(moviesListMock, moviesListMock, moviesListMock, moviesListMock)
-
     @Before
     fun init() {
         Dispatchers.setMain(dispatcher)
@@ -41,7 +39,6 @@ class HomeViewModelTest{
         Dispatchers.resetMain()
         dispatcher.cleanupTestCoroutines()
     }
-
     @Test
     fun `when LISTS OF MOVIES request returns SUCCESSFULLY expect live data list`() {
         dispatcher.runBlockingTest {
@@ -50,14 +47,12 @@ class HomeViewModelTest{
             val viewModel = HomeViewModel(homeDataSourceMock!!, dispatcher)
             // Act
             viewModel?.getListsOfMovies()
-
             // Assert
             assertEquals(listsOfMoviesMock, viewModel.listsOfMovies?.value)
             assertEquals(false, viewModel.isLoading?.value)
             assertEquals(false, viewModel.errorMessageVisibility?.value)
         }
 }
-
     @Test
     fun `when LISTS OF MOVIES request returns API ERROR expect error live data filled`() {
         dispatcher.runBlockingTest {
@@ -74,7 +69,6 @@ class HomeViewModelTest{
             assertEquals(AppConstants.API_ERROR_MESSAGE, viewModel.errorMessage?.value)
         }
     }
-
     @Test
     fun `when LISTS OF MOVIES request returns NETWORK ERROR expect error live data filled`() {
         dispatcher.runBlockingTest {
@@ -114,6 +108,4 @@ class HomeDataSourceMock(private val result: NetworkResponse<List<List<MovieDTO>
     ) {
         homeResultCallback(result)
     }
-
-
 }}

@@ -29,16 +29,11 @@ import java.io.IOException
 class HomeDataSourceImplTest{
     @get:Rule
     val rule = InstantTaskExecutorRule()
-
     private val dispatcher = TestCoroutineDispatcher()
-
     @Mock
     private lateinit var tmdbApi: TmdbApi
-
     private val movieResponseDTO = MovieResponseDTO(listOf(MovieDTO(0,"","","")))
-
     private lateinit var homeDataSourceImpl: HomeDataSourceImpl
-
     @Before
     fun init() {
         homeDataSourceImpl = HomeDataSourceImpl(tmdbApi)
@@ -49,7 +44,6 @@ class HomeDataSourceImplTest{
         Dispatchers.resetMain()
         dispatcher.cleanupTestCoroutines()
     }
-
     @Test
     fun `when ALL 4 REQUESTS returns SUCCESSFULLY expect success network response`() {
         dispatcher.runBlockingTest {
@@ -67,12 +61,10 @@ class HomeDataSourceImplTest{
                 NetworkResponse.Success(movieResponseDTO)
             )
             var response: NetworkResponse<List<List<MovieDTO>>, ErrorResponse>? = null
-
             // Act
             homeDataSourceImpl.getListsOfMovies(dispatcher){
                 response = it
             }
-
             // Assert
             assertTrue(response is NetworkResponse.Success)
             assertEquals(movieResponseDTO.results, (response as NetworkResponse.Success).body[0])
@@ -81,9 +73,6 @@ class HomeDataSourceImplTest{
             assertEquals(movieResponseDTO.results, (response as NetworkResponse.Success).body[3])
         }
     }
-
-
-
     @Test
     fun `when 1 OF THE REQUESTS returns API ERROR expect api error response`() {
         dispatcher.runBlockingTest {
@@ -101,19 +90,15 @@ class HomeDataSourceImplTest{
                 NetworkResponse.Success(movieResponseDTO)
             )
             var response: NetworkResponse<List<List<MovieDTO>>, ErrorResponse>? = null
-
             // Act
             homeDataSourceImpl.getListsOfMovies(dispatcher){
                 response = it
             }
-
             // Assert
             assertTrue(response is NetworkResponse.ApiError)
             assertEquals(NetworkResponse.ApiError(ErrorResponse(),400).body, (response as NetworkResponse.ApiError).body)
         }
     }
-
-
     @Test
     fun `when 1 OF THE REQUESTS returns NETWORK ERROR expect network error response`() {
         dispatcher.runBlockingTest {
@@ -131,17 +116,14 @@ class HomeDataSourceImplTest{
                 NetworkResponse.Success(movieResponseDTO)
             )
             var response: NetworkResponse<List<List<MovieDTO>>, ErrorResponse>? = null
-
             // Act
             homeDataSourceImpl.getListsOfMovies(dispatcher){
                 response = it
             }
-
             // Assert
             assertTrue(response is NetworkResponse.NetworkError)
         }
     }
-
     @Test
     fun `when 1 OF THE REQUESTS returns UNKNOWN ERROR expect unknown error response`() {
         dispatcher.runBlockingTest {
@@ -159,19 +141,14 @@ class HomeDataSourceImplTest{
                 NetworkResponse.Success(movieResponseDTO)
             )
             var response: NetworkResponse<List<List<MovieDTO>>, ErrorResponse>? = null
-
             // Act
             homeDataSourceImpl.getListsOfMovies(dispatcher){
                 response = it
             }
-
             // Assert
             assertTrue(response is NetworkResponse.UnknownError)
         }
     }
-
-
-
 }
 
 
